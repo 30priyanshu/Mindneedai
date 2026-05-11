@@ -8,6 +8,8 @@ const api = axios.create({
   baseURL: API_BASE_URL,
 });
 
+console.log("MindNeedAI API connecting to:", API_BASE_URL);
+
 let redirectingToLogin = false;
 
 function redirectToLogin(): void {
