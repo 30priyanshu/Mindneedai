@@ -1,0 +1,214 @@
+.mental-wellness-form .checkbox-group input[type="checkbox"]:disabled + label {
+    cursor: default;
+}
+
+.mental-wellness-form .comments-row {
+    padding: 8px;
+    border-top: 1px solid #000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: auto;
+}
+
+.mental-wellness-form .comments-row label {
+    font-weight: normal;
+    color: #000;
+    font-size: 14px;
+    flex-shrink: 0;
+    line-height: 1.4;
+}
+
+.mental-wellness-form .comments-row textarea {
+    flex: 1;
+    border: none;
+    border-bottom: 1px solid #666;
+    resize: vertical;
+    min-height: auto;
+    height: auto;
+    max-height: 150px;
+    padding: 4px 0;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+    background: transparent;
+    overflow-y: auto;
+    line-height: 1.4;
+}
+
+.mental-wellness-form .comments-row .comment-text {
+    flex: 1;
+    color: #000;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    padding: 4px 0;
+    min-height: auto;
+    max-height: 150px;
+    overflow-y: auto;
+    line-height: 1.4;
+}
+
+.mental-wellness-form .comments-row textarea:focus {
+    outline: none;
+    border-bottom: 2px solid #000;
+}
+
+.mental-wellness-form .mood-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 8px 0;
+}
+
+.mental-wellness-form .single-line-section {
+    display: grid;
+    grid-template-columns: 120px 1fr 150px;
+    padding: 8px;
+    align-items: center;
+}
+
+.mental-wellness-form .single-line-section label {
+    font-weight: bold;
+    color: #000;
+}
+
+.mental-wellness-form .single-line-section .options {
+    display: flex;
+    gap: 15px;
+    padding: 0 15px;
+}
+
+.mental-wellness-form .single-line-section .comments-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mental-wellness-form .single-line-section .comments-inline input[type="text"] {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #666;
+    padding: 4px;
+    font-size: 14px;
+    color: #000;
+    background: transparent;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.mental-wellness-form .single-line-section .comments-inline input[type="text"]:focus {
+    outline: none;
+    border-bottom: 2px solid #000;
+}
+
+.mental-wellness-form .single-line-section .comments-inline label {
+    font-weight: normal;
+    color: #000;
+}
+
+.mental-wellness-form .single-line-section .comments-inline .comment-text {
+    color: #000;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    max-width: 100%;
+    overflow: auto;
+}
+
+@media (max-width: 768px) {
+    .mental-wellness-form .form-container {
+        padding: 15px;
+    }
+
+    .mental-wellness-form .field-row {
+        grid-template-columns: 120px 1fr;
+    }
+
+    .mental-wellness-form .field-label {
+        font-size: 13px;
+        padding: 6px;
+    }
+
+    .mental-wellness-form .field-options {
+        gap: 10px;
+        padding: 6px;
+    }
+
+    .mental-wellness-form .single-line-section {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .mental-wellness-form .single-line-section .options {
+        padding: 0;
+    }
+
+}
+
+@media print {
+    .mental-wellness-form {
+        background-color: white;
+    }
+    
+    .mental-wellness-form .form-container {
+        border: 2px solid #000;
+        box-shadow: none;
+    }
+
+    .mental-wellness-form .checkbox-group input[type="checkbox"]:checked {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        background-color: #dc2626;
+        border-color: #dc2626;
+    }
+
+    .mental-wellness-form .checkbox-group input[type="checkbox"]:checked::after,
+    .mental-wellness-form .checkbox-group input[type="checkbox"]:checked:disabled::after {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .mental-wellness-form .comment-text {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+    }
+}
+
+.pdf-export .mental-wellness-form .checkbox-group {
+    display: inline-flex !important;
+    align-items: center !important;
+    vertical-align: middle !important;
+    line-height: 18px !important;
+}
+
+.pdf-export .mental-wellness-form .checkbox-group input[type="checkbox"] {
+    vertical-align: middle !important;
+    margin: 0 !important;
+    position: relative !important;
+    display: inline-block !important;
+    top: 0 !important;
+    transform: translateY(2px) !important;
+}
+
+.pdf-export .mental-wellness-form .checkbox-group label {
+    vertical-align: middle !important;
+    line-height: 18px !important;
+    display: inline-block !important;
+}
+
+.pdf-export .mental-wellness-form .section {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}
+
+.pdf-export .mental-wellness-form .field-row {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}
+
+.pdf-export .mental-wellness-form .comments-row {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}

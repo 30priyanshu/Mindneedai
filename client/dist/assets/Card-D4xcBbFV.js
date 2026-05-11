@@ -1,0 +1,1 @@
+import{j as d,g as t}from"./index-CNOE4qd7.js";const l={none:"",sm:"p-4",md:"p-6",lg:"p-8"},i=({children:r,className:a,padding:e="md",hover:s=!1,elevated:o=!1})=>d.jsx("div",{className:t(o?"card-elevated":"card",l[e],s&&"transition-all duration-200 hover:shadow-lg hover:scale-[1.01] hover:border-primary/30 dark:hover:border-primary/30",a),children:r});export{i as C};
