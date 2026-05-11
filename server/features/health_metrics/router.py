@@ -81,5 +81,7 @@ def delete_health_entry(
     entry_id: str,
     current_user: dict = Depends(get_current_user),
     service: HealthMetricsService = Depends(_get_service),
+):
+    """Delete a health metrics entry (owner only)."""
     service.delete_entry(current_user["user_id"], entry_id)
     return Response(status_code=204)
