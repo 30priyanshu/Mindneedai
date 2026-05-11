@@ -9,7 +9,7 @@ from __future__ import annotations
 from datetime import date
 from typing import Optional
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Response
 from sqlalchemy.orm import Session
 
 from server.config.settings import settings
@@ -76,11 +76,10 @@ def get_latest_entry(
     return service.get_latest(current_user["user_id"])
 
 
-@health_metrics_router.delete("/{entry_id}", status_code=204)
+@health_metrics_router.delete("/{entry_id}", status_code=204, response_class=Response)
 def delete_health_entry(
     entry_id: str,
     current_user: dict = Depends(get_current_user),
     service: HealthMetricsService = Depends(_get_service),
-) -> None:
-    """Delete a health metrics entry (owner only)."""
     service.delete_entry(current_user["user_id"], entry_id)
+    return Response(status_code=204)

@@ -11,7 +11,7 @@ from typing import Optional
 from datetime import date
 from fastapi import HTTPException
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Response
 from sqlalchemy.orm import Session
 
 from server.db.session import get_db
@@ -76,12 +76,12 @@ def get_mood_entry_by_date(
     return entries[0]
 
 
-@mood_router.delete("/entry/{date_str}", status_code=204)
+@mood_router.delete("/entry/{date_str}", status_code=204, response_class=Response)
 def delete_mood_entry(
     date_str: str,
     current_user: dict = Depends(get_current_user),
     service: MoodService = Depends(_get_service),
-) -> None:
+):
     """Delete a mood entry by date."""
     try:
         parsed_date = date.fromisoformat(date_str)
@@ -92,3 +92,4 @@ def delete_mood_entry(
     if not entries:
         raise HTTPException(status_code=404, detail="Mood entry not found")
     service.delete_entry(current_user["user_id"], entries[0].entry_id)
+    return Response(status_code=204)

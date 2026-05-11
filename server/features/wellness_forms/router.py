@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from fastapi import APIRouter, BackgroundTasks, Depends, Query
+from fastapi import APIRouter, BackgroundTasks, Depends, Query, Response
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 
@@ -152,14 +152,15 @@ async def update_wellness_form(
     return form
 
 
-@wellness_forms_router.delete("/{form_id}", status_code=204)
+@wellness_forms_router.delete("/{form_id}", status_code=204, response_class=Response)
 def delete_wellness_form(
     form_id: str,
     current_doctor: dict = Depends(get_current_doctor),
     service: WellnessFormService = Depends(_get_service),
-) -> None:
+):
     """Soft-delete a wellness form (owning doctor only)."""
     service.delete_form(current_doctor["doctor_id"], form_id)
+    return Response(status_code=204)
 
 
 @wellness_forms_router.get("/{form_id}/ai-summary", response_model=AIInsightsResponse)
@@ -176,14 +177,15 @@ def get_ai_summary(
     return service.get_ai_summary(form_id, current_user)
 
 
-@wellness_forms_router.delete("/{form_id}/ai-summary", status_code=204)
+@wellness_forms_router.delete("/{form_id}/ai-summary", status_code=204, response_class=Response)
 def delete_ai_summary(
     form_id: str,
     current_user: dict = Depends(get_current_user_or_doctor),
     service: WellnessFormService = Depends(_get_service),
-) -> None:
+):
     """Clear the AI summary data for a wellness form (owning doctor or patient)."""
     service.delete_ai_summary(form_id, current_user)
+    return Response(status_code=204)
 
 
 @wellness_forms_router.post("/{form_id}/regenerate-ai", response_model=WellnessFormResponse)

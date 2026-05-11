@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, Response
 from sqlalchemy.orm import Session
 
 from server.db.session import get_db
@@ -179,14 +179,15 @@ def list_patient_requests(
     return service.get_requests_for_patient(current_doctor["doctor_id"], patient_id)
 
 
-@assessments_router.delete("/requests/{request_id}", status_code=204)
+@assessments_router.delete("/requests/{request_id}", status_code=204, response_class=Response)
 def cancel_assessment_request(
     request_id: str,
     current_doctor: dict = Depends(get_current_doctor),
     service: AssessmentService = Depends(_get_service),
-) -> None:
+):
     """Cancel a pending assessment request (doctor only)."""
     service.cancel_request(current_doctor["doctor_id"], request_id)
+    return Response(status_code=204)
 
 
 @assessments_router.get(

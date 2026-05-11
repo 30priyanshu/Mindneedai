@@ -3,7 +3,7 @@ Authentication endpoints.
 """
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Response
 from sqlalchemy.orm import Session
 
 from server.db.session import get_db
@@ -48,9 +48,9 @@ def login(
     return auth_service.login(req)
 
 
-@auth_router.post("/logout", status_code=204)
-def logout() -> None:
-    return None
+@auth_router.post("/logout", status_code=204, response_class=Response)
+def logout():
+    return Response(status_code=204)
 
 
 @auth_router.get("/me", response_model=AuthMeResponse)
@@ -67,14 +67,15 @@ def get_me(
     )
 
 
-@auth_router.post("/change-password", status_code=204)
+@auth_router.post("/change-password", status_code=204, response_class=Response)
 def change_password(
     req: ChangePasswordRequest,
     entity: Annotated[dict[str, str], Depends(get_current_user_or_doctor)],
     auth_service: AuthService = Depends(get_auth_service),
-) -> None:
+):
     entity_id = entity.get("user_id") or entity.get("doctor_id")
     if not entity_id:
         from server.exceptions import UnauthorizedError
         raise UnauthorizedError("Unable to identify entity_id")
     auth_service.change_password(entity_id, entity["role"], req.old_password, req.new_password)
+    return Response(status_code=204)
